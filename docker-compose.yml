@@ -1,0 +1,95 @@
+# # version: '3.8'
+# services:
+#   db:
+#     image: postgres:13
+#     environment:
+#       POSTGRES_DB: odoo_db
+#       POSTGRES_USER: odoo_user
+#       POSTGRES_PASSWORD: your_password
+#     volumes:
+#       - odoo-db-data:/var/lib/postgresql/data
+#     restart: always
+#     healthcheck:
+#       test: [ "CMD-SHELL", "pg_isready -U odoo_user -d odoo_db" ]
+#       interval: 5s
+#       timeout: 5s
+#       retries: 5
+#   odoo:
+#     image: odoo:17
+#     depends_on:
+#       db:
+#         condition: service_healthy
+#     environment:
+#       HOST: db
+#       USER: odoo_user
+#       PASSWORD: your_password
+#       DB_NAME: odoo_db
+#     ports:
+#       - "8069:8069"
+#     volumes:
+#       - odoo-web-data:/var/lib/odoo
+#       - ./addons:/mnt/extra-addons
+#       - ./config:/etc/odoo
+#     command:
+#       - odoo
+#       - --database=odoo_db
+#       - --db_host=db
+#       - --db_port=5432
+#       - --db_user=odoo_user
+#       - --db_password=your_password
+#       - -i
+#       - base
+# volumes:
+#   odoo-db-data:
+#   odoo-web-data:
+
+version: '3.8'
+
+services:
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: odoo_db
+      POSTGRES_USER: odoo_user
+      POSTGRES_PASSWORD: your_password
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data
+    restart: always
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U odoo_user -d odoo_db" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  odoo:
+    image: odoo:17
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      HOST: db
+      USER: odoo_user
+      PASSWORD: your_password
+      DB_NAME: odoo_db
+    ports:
+      - "8069:8069"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./addons:/mnt/extra-addons
+      - ./config:/etc/odoo
+    command:
+      - odoo
+      - --database=odoo_db
+      - --db_host=db
+      - --db_port=5432
+      - --db_user=odoo_user
+      - --db_password=your_password
+      - --addons-path=/mnt/extra-addons,/usr/lib/python3/dist-packages/odoo/addons
+      - -i
+      - base
+      - -i
+      - mylibrary # Add your custom module here for auto-install
+
+volumes:
+  odoo-db-data:
+  odoo-web-data:

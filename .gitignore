@@ -1,0 +1,6 @@
+# Ignore the odoo folder
+/odoo/
+
+# Other common ignores (optional)
+*.log
+__pycache__/

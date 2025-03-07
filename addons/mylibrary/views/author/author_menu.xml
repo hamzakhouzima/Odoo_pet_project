@@ -1,0 +1,10 @@
+<odoo>
+    <!-- Create a top-level "Library" menu in the dashboard -->
+    <menuitem id="menu_library_root" name="Library" sequence="1" />
+
+    <!-- Add an "Authors" submenu under "Library" -->
+    <menuitem id="menu_authors" name="Authors" parent="menu_library_root" sequence="1"/>
+
+    <!-- Child menu to manage authors -->
+    <menuitem id="menu_library_author" name="Manage Authors" parent="menu_authors" action="action_book_author" sequence="1"/>
+</odoo>

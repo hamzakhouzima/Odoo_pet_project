@@ -1,0 +1,11 @@
+<odoo>
+    <record id="action_library_book" model="ir.actions.act_window">
+        <field name="name">Books</field>
+        <field name="res_model">library.book</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Create and manage your library books here.</p>
+        </field>
+    </record>
+</odoo>      
+    

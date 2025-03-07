@@ -1,0 +1,67 @@
+<odoo>
+    <!-- Tree View -->
+        <!-- <record id="view_library_book_tree" model="ir.ui.view">
+            <field name="name">library.book.tree</field>
+            <field name="model">library.book</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="author"/>
+                    <field name="published_date"/>
+                    <field name="copies_available"/>
+                    <field name="isbn"/>
+                </tree>
+            </field>
+        </record> -->
+
+
+   <record id="view_library_book_form" model="ir.ui.view">
+    <field name="name">library.book.form</field>
+    <field name="model">library.book</field>
+    <field name="arch" type="xml">
+        <form>
+            <sheet>
+                <field name="name"/>
+                <group col="2">
+                    <field name="author_id" string="Author"/>
+                    <field name="published_date"/>
+                </group>
+                <notebook>
+                    <page string="Details">
+                        <field name="isbn"/>
+                        <field name="copies_available"/>
+                    </page>
+                </notebook>
+            </sheet>
+        </form>
+    </field>
+</record>
+        
+
+        
+
+
+
+
+<!--         
+    <record id="view_library_book_search" model="ir.ui.view">
+        <field name="name">library.book.search</field>
+        <field name="model">library.book</field>
+        <field name="arch" type="xml">
+            <search>  
+                <field name="name"/>
+                <field name="author"/>
+                <field name="isbn"/>
+                <field name="published_date"/>
+
+                <filter name="available_books" string="Available Books" domain="[('copies_available', '>', 0)]"/>
+                <filter name="unavailable_books" string="Unavailable Books" domain="[('copies_available', '=', 0)]"/>
+                
+                <group expand="0" string="Group By">    
+                    <filter name="group_by_author" string="Author" context="{'group_by': 'author'}"/>
+                    <filter name="group_by_year" string="Publication Year" context="{'group_by': 'published_date'}"/>
+                </group>
+            </search>
+        </field>
+    </record> -->
+</odoo>

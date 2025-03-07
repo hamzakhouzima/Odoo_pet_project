@@ -1,0 +1,14 @@
+<odoo>
+    <record id="action_book_author" model="ir.actions.act_window">
+        <field name="name">Authors</field>
+        <field name="res_model">library.author</field> <!--res_model == resource model> -->
+        <field name="view_mode">tree,form</field>
+        <!-- <field name="view_id" ref="view_library_author_tree"/> -->
+         <!-- Explicitly link the tree view -->
+        <field name="domain">[]</field>  <!-- (Optional) Ensures it shows all records ###############-->
+        <field name="context">{}</field> <!-- (Optional) Avoids unexpected context issues ###############-->
+        <field name="help" type="html">
+            <p>Create and manage your Authors here.</p>
+        </field>
+    </record>
+</odoo>
