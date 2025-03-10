@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="estate.DashboardTemplate">
+        <div class="o_estate_dashboard">
+            <h1>Dashboard</h1>
+            <!-- If you need user info, use state.user instead of env.user -->
+            <p t-if="state.user">Welcome, <t t-esc="state.user.name || 'User'"/></p>
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="state.data" t-as="item" t-key="item.id || item_index">
+                        <td><t t-esc="item.name"/></td>
+                        <td><t t-esc="item.value"/></td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-primary" t-on-click="() => this.updateRecord(item.id)">Update</button>
+                                <button class="btn btn-danger" t-on-click="() => this.deleteRecord(item.id)">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <button class="btn btn-success mt-2" t-on-click="() => this.createRecord()">Add</button>
+        </div>
+    </t>
+</templates>

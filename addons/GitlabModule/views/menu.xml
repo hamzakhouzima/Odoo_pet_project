@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    
+
+    <record id="action_project_database" model="ir.actions.act_window">
+        <field name="name">Project Database</field>
+        <field name="res_model">project.database</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+   <record id="action_project_members" model="ir.actions.act_window">
+        <field name="name">Gitlab Members</field>
+        <field name="res_model">projet.members</field>
+        <field name="view_mode">tree</field>
+    </record>
+    <record id="action_gitlab_credentials" model="ir.actions.act_window">
+        <field name="name">Gitlab Credentials</field>
+        <field name="res_model">gitlab.credentials</field>
+        <field name="view_mode">kanban,form</field>
+    </record>
+
+
+
+    <menuitem id="menu_instances_root" name="Instances"/>
+    <menuitem id="menu_instances" name="Instances" parent="menu_instances_root" action="action_project_database"/>
+    <menuitem id="menu_configuration" name="Configuration" parent="menu_instances_root"/>
+    <menuitem id="menu_gitlab_credentials" name="Gitlab Credentials" parent="menu_configuration" action="action_gitlab_credentials" />
+    <!-- groups="group_gitlab" -->
+    <menuitem id="menu_gitlab_members" name="Gitlab Members" parent="menu_configuration" action="action_project_members"/>
+
+
+</odoo>

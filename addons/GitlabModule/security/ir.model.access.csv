@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_database,access_project_database,model_project_database,,1,1,1,1
+access_gitlab_credentials,access_gitlab_credentials,model_gitlab_credentials,group_gitlab,1,1,1,1
+access_project_members,access_project_members,model_projet_members,,1,1,1,1
+access_odoo_version,access_odoo_version,model_odoo_version,,1,1,1,1

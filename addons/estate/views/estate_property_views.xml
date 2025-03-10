@@ -6,6 +6,10 @@
         <field name="view_mode">tree,form</field>
     </record>
 
+    <record id="property_1" model="estate.property" forcecreate="False">
+        <field name="name">Property 1</field>
+    </record>
+    
     <record id="estate_property_list_view" model="ir.ui.view">
         <field name="name">estate.property.view.tree</field>
         <field name="model">estate.property</field>

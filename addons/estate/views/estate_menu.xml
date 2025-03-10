@@ -1,20 +1,30 @@
 <odoo>
+    <record id="action_property_dashboard" model="ir.actions.client">
+        <field name="name">Property Dashboard</field>
+        <field name="tag">estate_property_dashboard</field>
+    </record>
+    
     <!-- Root menu -->
     <menuitem id="real_estate_root_menu" name="Real Estate" sequence="10"/>
-
+    
     <!-- First level sub-menu -->
     <menuitem id="real_estate_properties_menu" name="Properties" action="estate_property_action"
               parent="real_estate_root_menu"/>
-
-    <menuitem id="real_estate_offers_menu" name="Offers" action="estate_offer_action" parent="real_estate_root_menu"/>
-
-    <menuitem id="real_estate_settings_menu" name="Settings" parent="real_estate_root_menu"/>
-
+    <menuitem id="real_estate_offers_menu" name="Offers" action="estate_offer_action" 
+              parent="real_estate_root_menu"/>
+    <menuitem id="real_estate_settings_menu" name="Settings" 
+              parent="real_estate_root_menu"/>
+    
+    <!-- Add Dashboard as first-level menu with sequence 5 -->
+    <menuitem id="menu_property_dashboard"
+              name="Dashboard"
+              parent="real_estate_root_menu"
+              action="action_property_dashboard"
+              sequence="5"/>
+              
     <!-- Second level sub-menu -->
     <menuitem id="real_estate_menu_property_types" name="Property Types" action="estate_property_types_action"
               parent="real_estate_settings_menu"/>
-
     <menuitem id="real_estate_menu_property_tags" name="Property Tags" action="estate_property_tags_action"
               parent="real_estate_settings_menu"/>
-
 </odoo>

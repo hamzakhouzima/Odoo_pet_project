@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="project_database_tree_view" model="ir.ui.view">
+        <field name="name">project.database.tree</field>
+        <field name="model">project.database</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="client"/>
+                <field name="link"/>
+                <field name="odoo_version"/>
+                <field name="code_quality"/>
+                <field name="pipeline_status" widget="statusbar"/>
+                <field name="branch_count"/>
+                <field name="position"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="project_database_form_view" model="ir.ui.view">
+        <field name="name">project.database.form</field>
+        <field name="model">project.database</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="client"/>
+                        <field name="link"/>
+                        <field name="odoo_version"/>
+                    </group>
+                    <notebook>
+                        <page string="Projets Gitlab">
+                            <group>
+                                <field name="project_name"/>
+                                <field name="git_link"/>
+                                <field name="access_token_id"/>
+                                <field name="code_quality"/>
+                                <field name="pipeline_status" widget="statusbar"/>
+                                <field name="project_members" widget="many2many_tags"/>
+                                <field name="branch_count"/>
+                                <field name="last_merge_request"/>
+                            </group>
+                            <button name="action_synchronize" string="SYNCH" type="object" class="oe_highlight"/>
+                            <button name="action_code_quality" string="Code Quality" type="object" class="oe_highlight"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>

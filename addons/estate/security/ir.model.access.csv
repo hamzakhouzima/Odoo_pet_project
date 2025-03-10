@@ -7,3 +7,7 @@ access_estate_property_type_user,Access Estate Property User,model_estate_proper
 access_estate_property_type_admin,Access Estate Property User,model_estate_property_type,estate.estate_admin,1,1,1,1
 access_estate_offer_user,Access Estate Property User,model_estate_offer,base.group_user,1,1,1,0
 access_estate_offer_admin,Access Estate Property User,model_estate_offer,estate.estate_admin,1,1,1,1
+
+
+
+    
