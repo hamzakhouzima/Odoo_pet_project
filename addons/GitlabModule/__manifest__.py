@@ -12,10 +12,10 @@
     'depends': ['base'],
     'external_dependencies': {
         'python': ['python-gitlab'],
-    },
-    'data': [
-        # 'security/ir.model.access.csv',
+    },        # 'security/ir.model.access.csv',
         # 'security/groups.xml',
+    'data': [
+        'data/odoo_version_data.xml',
         'views/gitlab_credentials_views.xml',
         'views/gitlab_members_views.xml',
         'views/project_database_views.xml',

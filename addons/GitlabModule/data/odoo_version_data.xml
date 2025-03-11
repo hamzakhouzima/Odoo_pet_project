@@ -1,0 +1,11 @@
+<odoo>
+    <record id="odoo_version_16" model="odoo.version">
+        <field name="version">16</field>
+    </record>
+    <record id="odoo_version_17" model="odoo.version">
+        <field name="version">17</field>
+    </record>
+    <record id="odoo_version_18" model="odoo.version">
+        <field name="version">18</field>
+    </record>
+</odoo>

@@ -4,6 +4,7 @@ import gitlab
 class GitlabCredentials(models.Model):
     _name = 'gitlab.credentials'
     _description = 'GitLab Credentials'
+    # _rec_name = 'Credentials'
 
     username = fields.Char(string="Username", required=True)
     token = fields.Char(string="Token", required=True)

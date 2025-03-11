@@ -5,73 +5,6 @@ from odoo.exceptions import UserError
 import logging
 import re  
 
-
-# class ProjectDatabase(models.Model):
-#     _name = 'project.database'
-#     _description = 'Project Database'
-#     _logger = logging.getLogger(__name__)
-
-
-#     name = fields.Char(string="Name", required=True)
-#     client = fields.Many2one('res.partner', string="Client")
-#     link = fields.Char(string="Link")
-#     odoo_version = fields.Many2one('odoo.version', string="Odoo Version")
-#     git_link = fields.Char(string="Git Link")
-#     position = fields.Selection([('prod', 'PROD'), ('test', 'TEST'), ('pre_prod', 'Pré-PROD')], string="Position")
-#     branch_count = fields.Integer(string="Number of Branches", readonly=True)
-#     group = fields.Char(string="Group")
-#     project_name = fields.Char(string="Project Name")
-#     default_branch = fields.Char(string="Default Branch", readonly=True)
-#     pipeline_status = fields.Selection([('succeed', 'Succeed'), ('failed', 'Failed')], string="Pipeline Status")
-#     project_members = fields.Many2many('projet.members', string="Project Members", readonly=True)
-#     code_quality = fields.Float(string="Code Quality / 10", readonly=True)
-#     last_merge_request = fields.Char(string="Last Merge Request")
-#     access_token_id = fields.Many2one('gitlab.credentials', string="Access Token")
-
-#     def action_synchronize(self):
-#         """Synchronize data with GitLab."""
-#         for record in self:
-#             if not record.access_token_id:
-#                 raise UserError("No GitLab credentials provided.")
-
-#             try:
-#                 gl = gitlab.Gitlab('https://gitlab.com', private_token=record.access_token_id.token)
-#                 project_path = record.git_link.strip('/').split('gitlab.com/')[-1] if 'gitlab.com' in record.git_link else record.git_link
-#                 project = gl.projects.get(project_path)
-#                 self._sync_project_data(record, project)
-
-#             except gitlab.exceptions.GitlabAuthenticationError as e:
-#                 raise UserError("Invalid GitLab token. Please check your credentials.")
-#             except gitlab.exceptions.GitlabGetError as e:
-#                 raise UserError(f"Could not fetch project: {e}")
-#             except Exception as e:
-#                 raise UserError(f"An unexpected error occurred: {e}")
-
-#     def _sync_project_data(self, record, project):
-#         """Synchronize the project-related fields."""
-#         try:
-#             record.branch_count = len(project.branches.list())
-#             record.default_branch = project.default_branch
-#             members = project.members.list()
-#             record.project_members = [(5, 0, 0)] + [(0, 0, {'name': member.name}) for member in members]
-#             merged_mrs = project.mergerequests.list(state='merged', order_by='updated_at', sort='desc')
-#             record.last_merge_request = merged_mrs[0].title if merged_mrs else 'No merge requests'
-#             pipelines = project.pipelines.list(branch=record.default_branch)
-#             record.pipeline_status = 'succeed' if pipelines and pipelines[0].status == 'success' else 'failed'
-#         except gitlab.exceptions.GitlabError as e:
-#             raise UserError(f"Error syncing project data: {e}")
-
-
-
-#     def action_code_quality(self):
-#         """Run pylint and assign code quality score."""
-#         for record in self:
-#             cmd = f"pylint --load-plugins=pylint_odoo --fail-under=7.00 --max-line-length=130 --disable=F0401,R0801,R1720,W0212,R1725,W0201,C8101,E0611,R0903,C0116 {record.git_link}"
-#             result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-#             score = float(result.stdout.split('Your code has been rated at ')[1].split('/10')[0])
-#             record.code_quality = score
-
-
 class ProjectDatabase(models.Model):
     _name = 'project.database'
     _description = 'Project Database'
@@ -80,7 +13,7 @@ class ProjectDatabase(models.Model):
     name = fields.Char(string="Name", required=True)
     client = fields.Many2one('res.partner', string="Client")
     link = fields.Char(string="Link")
-    odoo_version = fields.Many2one('odoo.version', string="Odoo Version")
+    version = fields.Many2one('odoo.version', string="Odoo Version" , required=True, default=lambda self: self.env['odoo.version'].search([('version', '=', '16')], limit=1).id)
     git_link = fields.Char(string="Git Link")
     position = fields.Selection([('prod', 'PROD'), ('test', 'TEST'), ('pre_prod', 'Pré-PROD')], string="Position")
     branch_count = fields.Integer(string="Number of Branches", readonly=True)

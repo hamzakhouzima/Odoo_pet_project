@@ -8,7 +8,7 @@
                 <field name="name"/>
                 <field name="client"/>
                 <field name="link"/>
-                <field name="odoo_version"/>
+                <field name="version"/>
                 <field name="code_quality"/>
                 <field name="pipeline_status" widget="statusbar"/>
                 <field name="branch_count"/>
@@ -27,7 +27,7 @@
                         <field name="name"/>
                         <field name="client"/>
                         <field name="link"/>
-                        <field name="odoo_version"/>
+                        <field name="version"/>
                     </group>
                     <notebook>
                         <page string="Projets Gitlab">
