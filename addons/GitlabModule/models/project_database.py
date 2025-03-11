@@ -144,10 +144,14 @@ class ProjectDatabase(models.Model):
             except Exception as e:
                 self._logger.warning(f"Error fetching pipelines: {e}")
                 record.pipeline_status = 'failed'
-                
+            # record['pipeline_status'] = self._pipeline_status(project)
+
         except gitlab.exceptions.GitlabError as e:
             self._logger.error(f"Error syncing data for project '{project.name}': {e}")
             raise UserError(f"Error syncing project data: {e}")
+
+
+
 
     def action_code_quality(self):
         """Run pylint and assign code quality score."""
@@ -193,3 +197,43 @@ class ProjectDatabase(models.Model):
             except Exception as e:
                 self._logger.exception(f"Error analyzing code quality: {e}")
                 raise UserError(f"Error analyzing code quality: {e}")
+            
+
+
+
+
+
+
+
+    def _pipeline_status(self , project , record):
+        try:
+            vals = {
+                'project_name': project.name,
+                'group': project.namespace['full_path'],
+                'default_branch': project.default_branch,
+            }
+                # Fetch the latest pipeline for the default branch
+            pipelines = project.pipelines.list(
+                ref=project.default_branch,  # Main branch only
+                sort='id_desc',              # Latest first
+                per_page=1                   # Only the most recent
+            )
+            if pipelines:
+                gitlab_status = pipelines[0].status
+                # Map GitLab status to Odoo selection
+                vals['pipeline_status'] = 'succeed' if gitlab_status == 'success' else 'failed'
+                self._logger.info(f"Pipeline status for {project.name} (branch: {project.default_branch}): {gitlab_status}")
+            else:
+                vals['pipeline_status'] = 'failed'  # No pipeline found
+                self._logger.info(f"No pipelines found for {project.name} on branch {project.default_branch}")
+            
+        except Exception as e:
+            self._logger.warning(f"Error fetching pipeline status for {project.name}: {e}")
+            vals['pipeline_status'] = 'failed'
+
+            # Write all updates
+            record.write(vals)
+
+        except Exception as e:
+            self._logger.error(f"Sync failed for project {project.name}: {e}")
+            raise
